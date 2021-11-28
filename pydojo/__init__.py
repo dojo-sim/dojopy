@@ -2,7 +2,7 @@ import os
 import subprocess
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
-from cosmopy.interface import *
+from dojopy.interface import *
 
 
 # def install():
