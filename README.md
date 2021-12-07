@@ -21,19 +21,38 @@ with decision variables `x ϵ R^n`, `s ϵ R^m` and data matrices `P=P'>=0`, `q �
 ## Installation
 The wrapper makes a call to Julia via the pyjulia interface. To set this up:
 
+1. Install  [`pyenv`](https://julialang.org/downloads/)
+    - Installation guide for [Ubuntu](https://www.liquidweb.com/kb/how-to-install-pyenv-on-ubuntu-18-04/)
+    - Installation guide for [MacOS](https://julialang.org/downloads/)
+    - Installation guide for [Windows](https://julialang.org/downloads/)
+
+2. Use `pyenv` to [build your own Python](https://pyjulia.readthedocs.io/en/stable/troubleshooting.html#ultimate-fix-build-your-own-python)
+    - We call this python binary the `custom_python`. It's located at `path/to/custom_python` e.g. `/home/user/.pyenv/versions/3.6.9/bin/python3` 
+    - This step is needed because PyJulia cannot be initialized properly out-of-the-box when Python executables are statically linked to libpython. This is the case if you use Python installed with Debian-based Linux distribution such as Ubuntu or install Python by conda. More details about this [here](https://pyjulia.readthedocs.io/en/stable/troubleshooting.html#ultimate-fix-build-your-own-python).
+
+3. Create a virtual environment linked to `custom_python`
+    - In your shell run: `path/to/custom_python -m venv /path/to/new/virtual/environment/my_env`
+
 **On the Julia side:**
 
-1. Install the *Julia* programming language (`v1.5+` recommended) [[Julia Download page]](https://julialang.org/downloads/)
+4. Install the *Julia* programming language (`v1.5+` recommended) [[Julia Download page]](https://julialang.org/downloads/)
 
-2. Open the Julia REPL and install the Julia package `COSMO.jl`: `(type ]): pkg> add COSMO` (at least `v0.7.7+`)
+5. Install [`PyCall`](https://github.com/JuliaPy/PyCall.jl)
+     - [Specify the Python version](https://github.com/JuliaPy/PyCall.jl#specifying-the-python-version) to be the `custom_python`.
+     - e.g. `ENV["PYTHON"] = "/home/user/.pyenv/versions/3.6.9/bin/python3"`
+     - `Pkg.build("PyCall")`
+   
+6. Open the Julia REPL and install the Julia package `Dojo.jl`: `(type ]): pkg> add Dojo` (at least `v0.1.0+`)
 
 **On the Python side:**
 
-3. Install `pyjulia`, the interface that lets you call Julia code from Python: `python3 -m pip install julia` 
+7. Install `pyjulia`, the interface that lets you call Julia code from Python: 
+    - Activate your virtual environement, then run
+    - `python3 -m pip install julia` 
 
-4. In Python run `import julia` followed by `julia.install()` to finish the `pyjulia` setup.
+8. In Python run `import julia` followed by `julia.install()` to finish the `pyjulia` setup.
 
-5. Install this package: `git clone git@github.com:oxfordcontrol/cosmo-python.git` (for now, later via pip / conda)
+9. Install this package: `git clone git@github.com:simon-lc/dojopy.git` (for now, later via pip / conda)
 
 
 ## Example
