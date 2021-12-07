@@ -1,8 +1,8 @@
-# Python interface for COSMO.jl
+# Python interface for Dojo.jl
 
   <a href="https://travis-ci.org/oxfordcontrol/cosmo-python"><img src="https://travis-ci.org/oxfordcontrol/cosmo-python.svg?branch=master"></a>
 
-This is a thin Python-wrapper around the Julia package [COSMO.jl](https://github.com/oxfordcontrol/COSMO.jl). COSMO is a general purpose solver for convex conic optimisation problems of the form:
+This is a thin Python-wrapper around the Julia package [Dojo.jl](https://github.com/simon-lc/Dojo.jl). Dojo is a general purpose solver for convex conic optimisation problems of the form:
 <p align="center">
 <img src="https://github.com/migarstka/COSMO_assets/blob/master/cosmo_format.png" width=220px>
 </p>
