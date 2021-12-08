@@ -1,9 +1,6 @@
 # import julia
 # julia.install()
 
-# from julia.api import Julia
-# jl = Julia(compiled_modules=False)
-
 from julia import Base
 
 Base.sind(90)
