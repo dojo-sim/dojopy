@@ -1,4 +1,6 @@
-class Env:
+from julia import Dojo as _Dojo
+
+class Environment:
     def __init__(self, model):
         self.env = _Dojo.make(model)
         return 
@@ -16,7 +18,7 @@ class Env:
         return
 
     def _get_obs(self):
-        return _Dojo._get_obs(self)
+        return _Dojo._get_obs(self.env)
 
     def render(self):
         _Dojo.render(self.env)
@@ -25,4 +27,11 @@ class Env:
     def close(self):
         _Dojo.close(self.env)
         return 
+
+    def open_vis(self):
+        _Dojo.open(self.env.vis)
+        return
+
+    def sample_action(self):
+        return _Dojo.sample(self.env.aspace)
         
