@@ -2,8 +2,10 @@ from julia import Base
 from julia import Main
 import time
 from julia import LinearAlgebra as _LinearAlgebra
-from julia import Dojo as _Dojo
+from julia import Dojo as dojo
 import matplotlib.pyplot as plt
+import meshcat
+
 
 from dev.environment import Environment 
 
