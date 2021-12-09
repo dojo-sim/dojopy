@@ -8,7 +8,7 @@ import mujoco_py
 
 # hyper parameters
 class Hp():
-    def __init__(self):
+    def __init__(self, env_name = 'HalfCheetah-v2'):
         self.main_loop_size = 100
         self.horizon = 1000
         self.step_size = 0.02
@@ -17,13 +17,14 @@ class Hp():
         assert self.b<=self.n_directions, "b must be <= n_directions"
         self.noise = 0.03
         self.seed = 1
+        self.env_name = env_name
         ''' chose your favourite '''
         # self.env_name = 'Reacher-v1'
         # self.env_name = 'Pendulum-v0'
         # self.env_name = 'HalfCheetahBulletEnv-v0'
         # self.env_name = 'Hopper-v1'#'HopperBulletEnv-v0'
         # self.env_name = 'Ant-v2'#'AntBulletEnv-v0'#
-        self.env_name = 'HalfCheetah-v2'
+        # self.env_name = 'HalfCheetah-v2'
         # self.env_name = 'Swimmer-v1'
         # self.env_name = 'Humanoid-v1'
 
@@ -49,26 +50,27 @@ class Normalizer():
 
 # linear policy
 class Policy():
-    def __init__(self, input_size, output_size):
+    def __init__(self, input_size, output_size, hp):
+        self.hp = hp
         self.theta = np.zeros((output_size, input_size))
 
     def evaluate(self, input):
         return self.theta.dot(input)
 
     def positive_perturbation(self, input, delta):
-        return (self.theta + hp.noise*delta).dot(input)
+        return (self.theta + self.hp.noise*delta).dot(input)
 
     def negative_perturbation(self, input, delta):
-        return (self.theta - hp.noise*delta).dot(input)
+        return (self.theta - self.hp.noise*delta).dot(input)
 
     def sample_deltas(self):
-        return [np.random.randn(*self.theta.shape) for _ in range(hp.n_directions)]
+        return [np.random.randn(*self.theta.shape) for _ in range(self.hp.n_directions)]
 
     def update(self, rollouts, sigma_r):
         step = np.zeros(self.theta.shape)
         for r_pos, r_neg, d in rollouts:
             step += (r_pos - r_neg)*d
-        self.theta += hp.step_size * step / (sigma_r*hp.b)
+        self.theta += self.hp.step_size * step / (sigma_r*self.hp.b)
 
 # training loop
 def train(env, policy, normalizer, hp):

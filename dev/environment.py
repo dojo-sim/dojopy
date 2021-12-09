@@ -55,8 +55,6 @@ class Environment:
     def sample_action(self):
         return dojo.sample(self.env.aspace)
 
-
-# aspace = BoxSpace(-np.ones(10), np.ones(10))
-# aspace.sample()
-# aspace.contains(np.zeros(10))
-# gym.spaces.box.Box(-np.ones(10), np.ones(10))
+def make(model):
+    return Environment(model)
+    
