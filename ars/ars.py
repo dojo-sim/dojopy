@@ -8,8 +8,8 @@ import mujoco_py
 
 # hyper parameters
 class Hp():
-    def __init__(self, env_name = 'HalfCheetah-v2'):
-        self.main_loop_size = 100
+    def __init__(self, env_name = 'HalfCheetah-v2', main_loop_size = 100):
+        self.main_loop_size = main_loop_size
         self.horizon = 1000
         self.step_size = 0.02
         self.n_directions = 16
@@ -140,3 +140,36 @@ def mkdir(base, name):
     if not os.path.exists(path):
         os.makedirs(path)
     return path
+
+# display learned policy
+def display_policy(env, policy, normalizer, hp):
+    state = env.reset()
+    done = False
+    num_plays = 1.
+    reward_evaluation = 0
+    while not done and num_plays<hp.horizon:
+        env.render()
+        normalizer.observe(state)
+        state = normalizer.normalize(state)
+        action = policy.evaluate(state)
+        state, reward, done, _ = env.step(action)
+        reward_evaluation += reward
+        num_plays += 1
+    env.close()
+    return 
+    
+# display learned policy
+def display_random(env, hp):
+    state = env.reset()
+    done = False
+    num_plays = 1.
+    reward_evaluation = 0
+    while not done and num_plays<hp.horizon:
+        env.render()
+        action = env.action_space.sample()
+        state, reward, done, _ = env.step(action)
+        reward_evaluation += reward
+        num_plays += 1
+    env.close()
+    return 
+    
