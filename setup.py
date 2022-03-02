@@ -1,21 +1,29 @@
-import setuptools
-from os import path
-this_directory = path.abspath(path.dirname(__file__))
+from setuptools import setup
 
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+def readme():
+    with open('README.md') as f:
+        return f.read()
 
-setuptools.setup(
-    name="dojopy",
-    version="0.1.0",
-    author="Simon Le Cleac'h and Taylor Howell",
-    author_email="simonlc@stanford.edu",
-    description="Differentiable Rigid-Body Simulation in Python",
-    url="https://github.com/simon-lc/dojopy",
-    install_requires=["numpy >= 1.7", "scipy >= 0.13.2", "julia >= 1.6.0"],
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    packages= setuptools.find_packages(),
-    python_requires='>=3.6',
-    license='MIT'
-)
+setup(name='dojopy',
+      version='0.1.0',
+      description='Solving Differential Equations in Python',
+      long_description=readme(),
+      long_description_content_type="text/markdown",
+      classifiers=[
+        'Development Status :: 4 - Beta',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Topic :: Scientific/Engineering :: Mathematics',
+        'Topic :: Scientific/Engineering :: Physics'
+      ],
+      url='http://github.com/dojo-sim/dojopy',
+      keywords='differential equations stochastic ordinary delay differential-algebraic dae ode sde dde',
+      author='Chris Rackauckas and Takafumi Arakaki',
+      author_email='contact@juliadiffeq.org',
+      license='MIT',
+      packages=['dojopy','dojopy.tests'],
+      install_requires=['julia>=0.2', 'jill'],
+      include_package_data=True,
+      zip_safe=False)

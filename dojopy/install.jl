@@ -1,5 +1,8 @@
 using Pkg
-Pkg.add("Dojo")
+Pkg.add("DifferentialEquations")
+Pkg.add("OrdinaryDiffEq")
+Pkg.add("DiffEqBase")
 Pkg.add("PyCall")
-using Dojo
+Pkg.build("PyCall")
+using DifferentialEquations
 using PyCall

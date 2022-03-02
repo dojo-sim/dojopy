@@ -1,0 +1,5 @@
+include README.md
+include LICENSE.md
+include docs/*.txt
+include dojopy/*.jl
+include dojopy/*.bash
