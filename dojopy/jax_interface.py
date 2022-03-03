@@ -1,10 +1,10 @@
 from julia import Dojo as dojo
-import jax
+import dojopy.jax_interface as jax_interface
 import jax.numpy as jnp
 from jax.config import config
 config.update("jax_enable_x64", True)
 
-@partial(jax.custom_vjp, nondiff_argnums=(0,))
+@partial(jax_interface.custom_vjp, nondiff_argnums=(0,))
 def dynamics(env, state, input):
 	dojo.step(env, state, input, diff=True)
 	return env.state 
@@ -20,6 +20,3 @@ def dynamics_bwd(env, res, g):
 	return (jacobian_state.T @ g, jacobian_input.T @ g)
 
 dynamics.defvjp(dynamics_fwd, dynamics_bwd)
-
-
-

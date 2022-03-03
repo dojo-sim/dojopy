@@ -1,10 +1,4 @@
-from julia import Dojo as dojo
-import jax
-import jax.numpy as jnp
-from jax.config import config
-config.update("jax_enable_x64", True)
-
-# TODO: import dojopy/jax.py
+from .. import jax_interface
 
 def test():
     # get an environment
@@ -27,8 +21,8 @@ def test():
     x2 = dynamics(env, x1, u1)
 
     # Jacobians
-    dx = jax.jacobian(dynamics, argnums=1)(env, x1, u1)
-    du = jax.jacobian(dynamics, argnums=2)(env, x1, u1)
+    dx = jax_interface.jacobian(dynamics, argnums=1)(env, x1, u1)
+    du = jax_interface.jacobian(dynamics, argnums=2)(env, x1, u1)
 
     assert jnp.linalg.norm(x2 - env.state) < 1.0e-5
     assert jnp.linalg.norm(dx - env.dynamics_jacobian_state) < 1.0e-5
@@ -41,8 +35,8 @@ def test():
     x2 = dynamics(env, x1, u1)
 
     # Jacobians
-    dx = jax.jacobian(dynamics, argnums=1)(env, x1, u1)
-    du = jax.jacobian(dynamics, argnums=2)(env, x1, u1)
+    dx = jax_interface.jacobian(dynamics, argnums=1)(env, x1, u1)
+    du = jax_interface.jacobian(dynamics, argnums=2)(env, x1, u1)
 
     assert jnp.linalg.norm(x2 - env.state) < 1.0e-5
     assert jnp.linalg.norm(dx - env.dynamics_jacobian_state) < 1.0e-5
