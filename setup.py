@@ -6,7 +6,7 @@ def readme():
 
 setup(name='dojopy',
       version='0.1.0',
-      description='Solving Differential Equations in Python',
+      description='Python interface to Dojo: A differentiable simulator for robotics',
       long_description=readme(),
       long_description_content_type="text/markdown",
       classifiers=[
@@ -19,11 +19,11 @@ setup(name='dojopy',
         'Topic :: Scientific/Engineering :: Physics'
       ],
       url='http://github.com/dojo-sim/dojopy',
-      keywords='differential equations stochastic ordinary delay differential-algebraic dae ode sde dde',
-      author='Chris Rackauckas and Takafumi Arakaki',
-      author_email='contact@juliadiffeq.org',
+      keywords='simulation robotics differentiable dynamics contact',
+      author='Simon Le Cleac\'h and Taylor Howell',
+      author_email='simonlc@stanford.edu and thowell@stanford.edu',
       license='MIT',
       packages=['dojopy','dojopy.tests'],
-      install_requires=['julia>=0.2', 'jill'],
+      install_requires=['julia>=0.2', 'jill', 'jax', 'torch'],
       include_package_data=True,
       zip_safe=False)
