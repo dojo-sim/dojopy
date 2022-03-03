@@ -1,17 +1,25 @@
 # Arguments
-# version of python that we will install
-PY_VERSION=${1:-3.8.2}
-# directory where pyenv will be installed
-PYENV_DIR=${2:-$HOME/.pyenv}
+# directory where we cloned the dojopy package
+WORKING_DIR=${1:-$HOME/Documents/dojopip}
 # directory where python environment will be installed
-ENV_DIR=${2:-$HOME/Documents/dojopip/auto_generated_dojo_env}
+ENV_DIR=${2:-$WORKING_DIR/auto_generated_dojo_env}
+# directory of the cloned dojopy package
+DOJOPY_DIR=${3:-$WORKING_DIR/dojopy}
+# version of python that we will install
+PY_VERSION=${4:-3.8.2}
+# directory where pyenv will be installed
+PYENV_DIR=${5:-$HOME/.pyenv}
 
 PY_DIR=${PYENV_DIR}/versions/${PY_VERSION}/bin/python3
 
-echo $PY_VERSION
-echo $PYENV_DIR
-echo $ENV_DIR
-echo $PY_DIR
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+echo "WORKING_DIR" $WORKING_DIR
+echo "ENV_DIR" $ENV_DIR
+echo "DOJOPY_DIR" $DOJOPY_DIR
+echo "PY_VERSION" $PY_VERSION
+echo "PYENV_DIR" $PYENV_DIR
+echo "PY_DIR" $PY_DIR
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 
 # This tutorial was performed as the root user on Ubuntu 18.04.
 
@@ -67,8 +75,8 @@ source ${ENV_DIR}/bin/activate
 # Step #7: Install the Julia programming language (v1.5+ recommended) [Julia Download page]
 $ENV_DIR/bin/python3 -m pip install julia
 $ENV_DIR/bin/python3 -m pip install jill
-$ENV_DIR/bin/python3 setup_julia.py
-$ENV_DIR/bin/python3 setup_pyjulia.py
+$ENV_DIR/bin/python3 ${DOJOPY_DIR}/setup_julia.py
+$ENV_DIR/bin/python3 ${DOJOPY_DIR}/setup_pyjulia.py
 
 # Install Dojopy dependencies
 $ENV_DIR/bin/python3 -m pip install matplotlib

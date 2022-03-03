@@ -3,3 +3,4 @@ include LICENSE.md
 include docs/*.txt
 include dojopy/*.jl
 include dojopy/*.bash
+include dojopy/*.py

@@ -16,7 +16,7 @@ from os.path import dirname, abspath, join
 #     return shutil.which("julia")
 #
 #
-def install(*, confirm=False):
+def install(ENV_DIR, *, confirm=False):
     """
     Install Julia (if required) and Julia packages required for diffeqpy.
     """
@@ -29,10 +29,14 @@ def install(*, confirm=False):
     print(result.stdout)
 
     result = subprocess.run(
-        ["sudo", "bash", join(dirname(abspath(__file__)), "install_dojopy.bash")],
+        # ["sudo", "bash", join(dirname(abspath(__file__)), "install_dojopy.bash"), "/home/simon/Documents/dojopip"],
+        ["sudo", "bash", join(dirname(abspath(__file__)), "install_dojopy.bash"), dirname(dirname(abspath(__file__))), ENV_DIR],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True)
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print(dirname(abspath(__file__)))
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print(result.stdout)
 
 
