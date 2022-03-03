@@ -1,4 +1,4 @@
-echo "█████ STEP 0/X -define arguments"
+echo "█████ STEP 0/7 -define arguments"
 # directory where we cloned the dojopy package
 WORKING_DIR=${1:-$HOME/Documents/dojopip}
 # directory where python environment will be installed
@@ -22,7 +22,7 @@ echo "PY_PATH" $PY_PATH
 
 # This tutorial was performed as the root user on Ubuntu 18.04.
 
-echo "█████ STEP 1/X - pyenv installation"
+echo "█████ STEP 1/7 - pyenv installation"
 echo "█████ stage 1 - update and install dependencies"
 apt update -y
 
@@ -36,7 +36,7 @@ apt install -y make build-essential libssl-dev zlib1g-dev \
 
 echo "█████ stage 3 - clone the repository"
 echo "█████ /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\need to delete this line"
-# rm -rf $PYENV_DIR
+rm -rf $PYENV_DIR
 git clone https://github.com/pyenv/pyenv.git $PYENV_DIR
 
 
@@ -50,10 +50,10 @@ source ~/.bashrc # not sure this is needed
 echo "█████ stage 5 - verify the installation - display list of available python versions"
 $PYENV_DIR/bin/pyenv install --list
 
-echo "█████ STEP 2/X - build a custom python binary with pyenv"
+echo "█████ STEP 2/7 - build a custom python binary with pyenv"
 echo "█████ stage 1 - we use pyenv to build a custom python binary in ${PYENV_DIR}"
 echo "█████ Do not be surprised if it takes a while for this command to run. Pyenv is building this version of Python from source."
-# PYTHON_CONFIGURE_OPTS="--enable-shared" $PYENV_DIR/bin/pyenv install $PY_VERSION
+PYTHON_CONFIGURE_OPTS="--enable-shared" $PYENV_DIR/bin/pyenv install $PY_VERSION
 
 
 echo "█████ stage 2 - verify the installation - display the list of python versions installed through pyenv, you should see $PY_VERSION displayed"
@@ -61,7 +61,7 @@ $PYENV_DIR/bin/pyenv versions
 
 
 
-echo "█████ STEP 3/X - create a virtual environment linked to previouly created custom python binary"
+echo "█████ STEP 3/7 - create a virtual environment linked to previouly created custom python binary"
 echo "█████ stage 1 - create a virtual environment"
 $PY_PATH -m pip install virtualenv
 echo "█████ /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\need to delete this line"
@@ -70,16 +70,17 @@ $PY_PATH -m venv $ENV_DIR
 source ${ENV_DIR}/bin/activate
 
 
-echo "█████ STEP 4/X - add dependencies to the newly created virtual environment located at $ENV_DIR"
+echo "█████ STEP 4/7 - add dependencies to the newly created virtual environment located at $ENV_DIR"
 $ENV_DIR/bin/python3 -m pip install julia
 $ENV_DIR/bin/python3 -m pip install jill
-echo "█████ STEP 5/X - install julia at /opt/julias/"
+echo "█████ STEP 5/7 - install julia at /opt/julias/"
+echo 'export PATH="/opt/julias/julia-1.7/bin:$PATH"' >> ~/.bashrc
 $ENV_DIR/bin/python3 ${DOJOPY_DIR}/setup_julia.py
-echo "█████ STEP 6/X - install pyjulia in the virtual environment: $ENV_DIR"
+echo "█████ STEP 6/7 - install pyjulia in the virtual environment: $ENV_DIR"
 $ENV_DIR/bin/python3 ${DOJOPY_DIR}/setup_pyjulia.py
 
 # Install Dojopy dependencies
-echo "█████ STEP 7/X - Install Dojopy dependencies in the virtual environment: $ENV_DIR"
+echo "█████ STEP 7/7 - Install Dojopy dependencies in the virtual environment: $ENV_DIR"
 $ENV_DIR/bin/python3 -m pip install matplotlib
 $ENV_DIR/bin/python3 -m pip install meshcat
 $ENV_DIR/bin/python3 -m pip install gym

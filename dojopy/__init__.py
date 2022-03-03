@@ -9,9 +9,9 @@ def install(ENV_DIR, *, confirm=False):
     """
     Install Julia (if required) and Julia packages required for diffeqpy.
     """
-    print("------------------------------------------------------")
-    print("dojopy installation: this process may take up to 20 minutes on the first time.")
-    print("------------------------------------------------------")
+    print("█████------------------------------------------------------")
+    print("█████ dojopy installation: this process may take up to 20 minutes on the first time.")
+    print("█████------------------------------------------------------")
     WORKING_DIR = dirname(dirname(abspath(__file__)))
     FILE_DIR = dirname(abspath(__file__))
     p = subprocess.Popen(
