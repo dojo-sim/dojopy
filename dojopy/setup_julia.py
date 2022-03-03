@@ -27,11 +27,11 @@ def install(*, confirm=False):
             raise RuntimeError(
                 "Julia installed with jill but `julia` binary cannot be found in the path"
             )
-    env = os.environ.copy()
-    print("█████ stage 2 - set environment variable PYTHON to ", sys.executable)
-    env["PYTHON"] = sys.executable
-    # this call the script add_julia_packages.jl contained in this scripts' directory
-    print("█████ stage 3 - add Julia packages: PyCall, Dojo -- build PyCall -- compile PyCall and Dojo")
-    subprocess.check_call([julia, os.path.join(script_dir, "add_julia_packages.jl")], env=env)
+    # env = os.environ.copy()
+    # print("█████ stage 2 - set environment variable PYTHON to ", sys.executable)
+    # env["PYTHON"] = sys.executable
+    # # this call the script add_julia_packages.jl contained in this scripts' directory
+    # print("█████ stage 3 - add Julia packages: PyCall, Dojo -- build PyCall -- compile PyCall and Dojo")
+    # subprocess.check_call([julia, os.path.join(script_dir, "add_julia_packages.jl")], env=env)
 
 install()
