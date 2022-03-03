@@ -14,11 +14,13 @@ def _find_julia():
 
 def install(*, confirm=False):
     """
-    Install Julia (if required) and Julia packages required for diffeqpy.
+    Install Julia (if required) and Julia packages required for dojopy.
     """
     julia = _find_julia()
-    if not julia:
-        print("No Julia version found. Installing Julia.")
+    if julia:
+        print("█████ stage 1 - a version of Julia has been found, we skip the installation of Julia")
+    else:
+        print("█████ stage 1 - no Julia version found, installing Julia")
         install_julia(confirm=confirm)
         julia = _find_julia()
         if not julia:
@@ -26,19 +28,10 @@ def install(*, confirm=False):
                 "Julia installed with jill but `julia` binary cannot be found in the path"
             )
     env = os.environ.copy()
-    print("sys.executable **************************************************", sys.executable)
+    print("█████ stage 2 - set environment variable PYTHON to ", sys.executable)
     env["PYTHON"] = sys.executable
-    # this call add_julia_packages.jl from current directory
+    # this call the script add_julia_packages.jl contained in this scripts' directory
+    print("█████ stage 3 - add Julia packages: PyCall, Dojo -- build PyCall -- compile PyCall and Dojo")
     subprocess.check_call([julia, os.path.join(script_dir, "add_julia_packages.jl")], env=env)
 
-
-def _ensure_installed(*kwargs):
-    if not _find_julia():
-        # TODO: this should probably ensure that packages are installed too
-        install(*kwargs)
-
-
-print("_find_julia()", _find_julia())
-# print("install()", install())
-print("sys.executable", sys.executable)
-print("setup_julia ####################################################################################################################################")
+install()

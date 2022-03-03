@@ -5,56 +5,21 @@ import sys
 
 from os.path import dirname, abspath, join
 
-
-# from jill.install import install_julia
-
-# script_dir = os.path.dirname(os.path.realpath(__file__))
-#
-#
-# def _find_julia():
-#     # TODO: this should probably fallback to query jill
-#     return shutil.which("julia")
-#
-#
 def install(ENV_DIR, *, confirm=False):
     """
     Install Julia (if required) and Julia packages required for diffeqpy.
     """
-    print("install ###############################################")
-    result = subprocess.run(
-        ["echo", "Hello, World!"],
+    print("------------------------------------------------------")
+    print("dojopy installation: this process may take up to 20 minutes on the first time.")
+    print("------------------------------------------------------")
+    WORKING_DIR = dirname(dirname(abspath(__file__)))
+    FILE_DIR = dirname(abspath(__file__))
+    p = subprocess.Popen(
+        ["sudo", "bash", join(FILE_DIR, "install_dojopy.bash"), WORKING_DIR, ENV_DIR],
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
         text=True)
-    print(result.stdout)
-
-    result = subprocess.run(
-        # ["sudo", "bash", join(dirname(abspath(__file__)), "install_dojopy.bash"), "/home/simon/Documents/dojopip"],
-        ["sudo", "bash", join(dirname(abspath(__file__)), "install_dojopy.bash"), dirname(dirname(abspath(__file__))), ENV_DIR],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True)
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print(dirname(abspath(__file__)))
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print(result.stdout)
-
-
-#     julia = _find_julia()
-#     if not julia:
-#         print("No Julia version found. Installing Julia.")
-#         install_julia(confirm=confirm)
-#         julia = _find_julia()
-#         if not julia:
-#             raise RuntimeError(
-#                 "Julia installed with jill but `julia` binary cannot be found in the path"
-#             )
-#     env = os.environ.copy()
-#     env["PYTHON"] = sys.executable
-#     subprocess.check_call([julia, os.path.join(script_dir, "install.jl")], env=env)
-#
-#
-# def _ensure_installed(*kwargs):
-#     if not _find_julia():
-#         # TODO: this should probably ensure that packages are installed too
-#         install(*kwargs)
+    while True:
+        line = p.stdout.readline()
+        print(line.rstrip("\n"))
+        if not line: break
