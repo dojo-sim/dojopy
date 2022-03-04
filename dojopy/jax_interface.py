@@ -8,7 +8,7 @@ from functools import partial
 
 @partial(jax.custom_vjp, nondiff_argnums=(0,))
 def jax_step(env, state, input):
-	dojo.step(env, state, input, diff=True) # TODO: diff -> gradients
+	dojo.step(env, state, input, gradients=True)
 	return env.state 
 
 def jax_step_fwd(env, state, input):

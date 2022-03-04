@@ -10,7 +10,7 @@ class TorchStep(torch.autograd.Function):
 		if type(input) is np.ndarray:
 			input = torch.tensor(input)
 		# step 
-		dojo.step(env, state.numpy(), input.numpy(), diff=True) # TODO: diff -> gradients
+		dojo.step(env, state.numpy(), input.numpy(), gradients=True)
 		# next state
 		next_state = env.state 
 		if type(next_state) is np.ndarray:
