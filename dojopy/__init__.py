@@ -7,7 +7,7 @@ from os.path import dirname, abspath, join
 
 def install(ENV_DIR, *, confirm=False):
     """
-    Install Julia (if required) and Julia packages required for diffeqpy.
+    Install Julia (if required) and Julia packages required for dojopy.
     """
     print("█████------------------------------------------------------")
     print("█████ dojopy installation: this process may take up to 20 minutes on the first time.")

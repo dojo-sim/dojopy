@@ -15,9 +15,8 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - macos-latest
+          # - macos-latest
           # Disabling Windows tests as it's known to not work:
-          # https://github.com/SciML/diffeqpy/pull/86#issuecomment-1011675735
           # - windows-latest
         architecture: [x64]
         python-version: ['3.10']
@@ -36,7 +35,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --upgrade tox
       - name: Run test
-        run: python -m tox -- --cov=diffeqpy -s
+        run: python -m tox -- --cov=dojopy -s
         env:
           TOXENV: py
       - name: Upload coverage to Codecov

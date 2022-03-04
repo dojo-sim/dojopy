@@ -24,6 +24,6 @@ setup(name='dojopy',
       author_email='simonlc@stanford.edu and thowell@stanford.edu',
       license='MIT',
       packages=['dojopy','dojopy.tests'],
-      install_requires=['julia>=0.2', 'jill', 'jax', 'torch'],
+      install_requires=['julia>=0.2', 'jill'],
       include_package_data=True,
       zip_safe=False)

@@ -14,7 +14,7 @@ import dojopy
 Using `Dojo` with Python requires a number of installations in addition to `dojopy`. Below are two options for installing all dependencies.
 
 ### Automatic (experimental)
-This option automates the steps outline in the advanced section below and automatically installs Dojo, Julia, and a compatible version of Python. (NOTE: this option only support Ubuntu)
+This option automates the steps outline in the advanced section below and automatically installs Dojo, Julia, and a compatible version of Python. (NOTE: this option only supports Ubuntu)
 
 1. Install this package:
 
@@ -32,12 +32,12 @@ dojopy.install()
 ### Manual (advanced)
 Calling Dojo from Python requires: 
 - dojopy: this wrapper
-- Julia +1.6
+- Julia v1.6+
 - Dojo.jl: the actual simulator
 - PyCall: interface between Julia and Python 
 - custom Python: this is required to make calls to Dojo fast and efficient 
 
-Below we walk through each of the require installation steps: 
+Below we walk through each of the required installation steps: 
 
 **Get `dojopy`**
 1. Clone this repository: 
@@ -50,12 +50,13 @@ git clone https://github.com/dojo-sim/dojopy
 **Custom Python installation**
 To make calls from Python to `Dojo` efficient requires a custom Python installation. 
 
-2. Install  [`pyenv`](https://julialang.org/downloads/)
+2. Install  [`pyenv`]
     - Installation guide for [Ubuntu](https://www.liquidweb.com/kb/how-to-install-pyenv-on-ubuntu-18-04/)
     - Installation guide for [MacOS](https://julialang.org/downloads/)
     - Installation guide for [Windows](https://julialang.org/downloads/)
 
 3. Use `pyenv` to [build your own Python](https://pyjulia.readthedocs.io/en/stable/troubleshooting.html#ultimate-fix-build-your-own-python)
+    
     In `~/.pyenv` run: 
 
     ```bash
@@ -64,7 +65,7 @@ To make calls from Python to `Dojo` efficient requires a custom Python installat
 
     to create a custom binary.
 
-    - We call this python binary the `custom_python`. It's located at `path/to/custom_python` e.g. `/home/user/.pyenv/versions/3.6.6/bin/python3` 
+    - We call this python binary the `custom_python`. It's located at `path/to/custom_python` e.g., `/home/user/.pyenv/versions/3.6.6/bin/python3` 
     - This step is needed because PyJulia cannot be initialized properly out-of-the-box when Python executables are statically linked to libpython. This is the case if you use Python installed with Debian-based Linux distribution such as Ubuntu or installed Python via conda. More details about this [here](https://pyjulia.readthedocs.io/en/stable/troubleshooting.html#ultimate-fix-build-your-own-python).
 
 4. (Optional, Recommended) Create a virtual environment linked to `custom_python`
