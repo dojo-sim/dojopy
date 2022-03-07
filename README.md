@@ -1,6 +1,8 @@
 # Python interface for Dojo
 
 This package is a Python wrapper for the differentiable simulator [Dojo](https://github.com/dojo-sim/Dojo.jl).
+- arXiv preprint: https://arxiv.org/abs/2203.00806
+- Site: https://sites.google.com/view/dojo-sim
 
 Included are interfaces to [PyTorch](https://github.com/pytorch/pytorch) and [JAX](https://github.com/google/jax).
 
