@@ -19,7 +19,8 @@ This option automates the steps outline in the advanced section below and automa
 1. Install this package:
 
 ```bash 
-pip install dojopy 
+git clone https://github.com/dojo-sim/dojopy.git 
+pip install ./dojopy 
 ```
 
 2. Install dependencies 
@@ -33,9 +34,10 @@ dojopy.install()
 Calling Dojo from Python requires: 
 - dojopy: this wrapper
 - Julia v1.6+
+- Python v3.6+
 - Dojo.jl: the actual simulator
 - PyCall: interface between Julia and Python 
-- custom Python: this is required to make calls to Dojo fast and efficient 
+- custom Python binary: this is required to make calls to Dojo fast and efficient 
 
 Below we walk through each of the required installation steps: 
 
@@ -109,7 +111,7 @@ We can now call Dojo from Python!
 See the [Documentation](https://dojo-sim.github.io/Dojo.jl/dev/) for using Dojo.
 
 ## Performance
-We advise to read the [Performance Tips](https://github.com/dojo-sim/Dojo.jl) page. In particular, when Dojo is called from a python script, e.g. `python3 ...` Julia will *just-in-time* compile the solver code which will slow down the overall execution. For larger problems it is advisable to solve a mini problem first to trigger the JIT-compilation and get full performance on the subsequent solve of the actual problem .
+When Dojo is called from a python script, e.g. `python3 ...` Julia will *just-in-time* compile the solver code which will slow down the overall execution. For larger problems it is advisable to solve a mini problem first to trigger the JIT-compilation and get full performance on the subsequent solve of the actual problem .
 
 ## Licence
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
