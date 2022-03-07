@@ -15,15 +15,17 @@ Using `Dojo` with Python requires a number of installations in addition to `dojo
 
 ### Automatic (experimental)
 This option automates the steps outline in the advanced section below and automatically installs Dojo, Julia, and a compatible version of Python. (NOTE: this option only supports Ubuntu)
+1. Requirement
+- Python v3.7+
 
-1. Install this package:
+2. Install this package:
 
 ```bash 
 git clone https://github.com/dojo-sim/dojopy.git 
 pip install ./dojopy 
 ```
 
-2. Install dependencies 
+3. Install dependencies 
 
 ```python 
 import dojopy 
