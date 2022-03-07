@@ -5,9 +5,23 @@ This package is a Python wrapper for the differentiable simulator [Dojo](https:/
 Included are interfaces to [PyTorch](https://github.com/pytorch/pytorch) and [JAX](https://github.com/google/jax).
 
 ## Quickstart 
+This example simulates a pendulum for 1 time step.
 ```python
 import dojopy 
+from julia import Dojo as dojo
 
+# get an environment
+env = dojo.get_environment('pendulum')
+dojo.initialize_pendulum_b(env.mechanism, angle=0.0, angular_velocity=0.0)
+
+# get state
+x1 = dojo.get_minimal_state(env.mechanism)
+
+# random control
+u1 = Base.rand(nu)
+
+# simulate one time step
+dojo.step(env, x1, u1)
 ```
 
 ## Installation
@@ -15,7 +29,7 @@ Using `Dojo` with Python requires a number of installations in addition to `dojo
 
 ### Automatic (experimental)
 This option automates the steps outline in the advanced section below and automatically installs Dojo, Julia, and a compatible version of Python. (NOTE: this option only supports Ubuntu)
-1. Requirement
+1. Requirement:
 - Python v3.7+
 
 2. Install this package:
@@ -36,7 +50,6 @@ dojopy.install()
 Calling Dojo from Python requires: 
 - dojopy: this wrapper
 - Julia v1.6+
-- Python v3.6+
 - Dojo.jl: the actual simulator
 - PyCall: interface between Julia and Python 
 - custom Python binary: this is required to make calls to Dojo fast and efficient 
@@ -54,10 +67,10 @@ git clone https://github.com/dojo-sim/dojopy
 **Custom Python installation**
 To make calls from Python to `Dojo` efficient requires a custom Python installation. 
 
-2. Install  [`pyenv`]
+2. Install `pyenv`
     - Installation guide for [Ubuntu](https://www.liquidweb.com/kb/how-to-install-pyenv-on-ubuntu-18-04/)
-    - Installation guide for [MacOS](https://julialang.org/downloads/)
-    - Installation guide for [Windows](https://julialang.org/downloads/)
+    - Installation guide for [MacOS](https://binx.io/blog/2019/04/12/installing-pyenv-on-macos/)
+    - Installation guide for [Windows](https://github.com/pyenv-win/pyenv-win)
 
 3. Use `pyenv` to [build your own Python](https://pyjulia.readthedocs.io/en/stable/troubleshooting.html#ultimate-fix-build-your-own-python)
     
@@ -85,20 +98,21 @@ To make calls from Python to `Dojo` efficient requires a custom Python installat
 
 6. Install [`PyCall`](https://github.com/JuliaPy/PyCall.jl)
      - [Specify the Python version](https://github.com/JuliaPy/PyCall.jl#specifying-the-python-version) to be the `custom_python`.
-     - e.g. `ENV["PYTHON"] = "/home/user/.pyenv/versions/3.6.6/bin/python3"`
-     - `Pkg.build("PyCall")`
+        - e.g. `ENV["PYTHON"] = "/home/user/.pyenv/versions/3.6.6/bin/python3"`
+        - `Pkg.build("PyCall")`
    
 7. Open the Julia REPL and install the Julia package `Dojo.jl`: `(type ])`: 
 ```julia
-pkg> add https://github.com/dojo-sim/Dojo.jl
+pkg> add Dojo
 ```
 
 **Python setup**
 
-8. In your virtual environment, install: `pyjulia`, the interface that lets you call Julia code from Python. Activate your virtual environement, then run:
-```bash
-python3 -m pip install julia
-```
+8. In your virtual environment, install: `pyjulia`, the interface that lets you call Julia code from Python. 
+    - Activate your virtual environement, then run:
+    ```bash
+    python3 -m pip install julia
+    ```
 
 9. In Python run:
 ```python
