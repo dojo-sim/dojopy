@@ -5,7 +5,7 @@ import sys
 
 from os.path import dirname, abspath, join
 
-def install(ENV_DIR, *, confirm=False):
+def install(ENV_DIR="", *, confirm=False):
     """
     Install Julia (if required) and Julia packages required for dojopy.
     """
