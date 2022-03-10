@@ -1,13 +1,29 @@
 # Python interface for Dojo
 
 This package is a Python wrapper for the differentiable simulator [Dojo](https://github.com/dojo-sim/Dojo.jl).
+- arXiv preprint: https://arxiv.org/abs/2203.00806
+- Site: https://sites.google.com/view/dojo-sim
 
 Included are interfaces to [PyTorch](https://github.com/pytorch/pytorch) and [JAX](https://github.com/google/jax).
 
 ## Quickstart 
+This example simulates a pendulum for 1 time step.
 ```python
 import dojopy 
+from julia import Dojo as dojo
 
+# get an environment
+env = dojo.get_environment('pendulum')
+dojo.initialize_pendulum_b(env.mechanism, angle=0.0, angular_velocity=0.0)
+
+# get state
+x1 = dojo.get_minimal_state(env.mechanism)
+
+# random control
+u1 = Base.rand(nu)
+
+# simulate one time step
+dojo.step(env, x1, u1)
 ```
 
 ## Installation
@@ -15,14 +31,17 @@ Using `Dojo` with Python requires a number of installations in addition to `dojo
 
 ### Automatic (experimental)
 This option automates the steps outline in the advanced section below and automatically installs Dojo, Julia, and a compatible version of Python. (NOTE: this option only supports Ubuntu)
+1. Requirement:
+- Python v3.7+
 
-1. Install this package:
+2. Install this package:
 
 ```bash 
-pip install dojopy 
+git clone https://github.com/dojo-sim/dojopy.git 
+pip install ./dojopy 
 ```
 
-2. Install dependencies 
+3. Install dependencies 
 
 ```python 
 import dojopy 
@@ -35,7 +54,7 @@ Calling Dojo from Python requires:
 - Julia v1.6+
 - Dojo.jl: the actual simulator
 - PyCall: interface between Julia and Python 
-- custom Python: this is required to make calls to Dojo fast and efficient 
+- custom Python binary: this is required to make calls to Dojo fast and efficient 
 
 Below we walk through each of the required installation steps: 
 
@@ -50,10 +69,10 @@ git clone https://github.com/dojo-sim/dojopy
 **Custom Python installation**
 To make calls from Python to `Dojo` efficient requires a custom Python installation. 
 
-2. Install  [`pyenv`]
+2. Install `pyenv`
     - Installation guide for [Ubuntu](https://www.liquidweb.com/kb/how-to-install-pyenv-on-ubuntu-18-04/)
-    - Installation guide for [MacOS](https://julialang.org/downloads/)
-    - Installation guide for [Windows](https://julialang.org/downloads/)
+    - Installation guide for [MacOS](https://binx.io/blog/2019/04/12/installing-pyenv-on-macos/)
+    - Installation guide for [Windows](https://github.com/pyenv-win/pyenv-win)
 
 3. Use `pyenv` to [build your own Python](https://pyjulia.readthedocs.io/en/stable/troubleshooting.html#ultimate-fix-build-your-own-python)
     
@@ -81,20 +100,21 @@ To make calls from Python to `Dojo` efficient requires a custom Python installat
 
 6. Install [`PyCall`](https://github.com/JuliaPy/PyCall.jl)
      - [Specify the Python version](https://github.com/JuliaPy/PyCall.jl#specifying-the-python-version) to be the `custom_python`.
-     - e.g. `ENV["PYTHON"] = "/home/user/.pyenv/versions/3.6.6/bin/python3"`
-     - `Pkg.build("PyCall")`
+        - e.g. `ENV["PYTHON"] = "/home/user/.pyenv/versions/3.6.6/bin/python3"`
+        - `Pkg.build("PyCall")`
    
 7. Open the Julia REPL and install the Julia package `Dojo.jl`: `(type ])`: 
 ```julia
-pkg> add https://github.com/dojo-sim/Dojo.jl
+pkg> add Dojo
 ```
 
 **Python setup**
 
-8. In your virtual environment, install: `pyjulia`, the interface that lets you call Julia code from Python. Activate your virtual environement, then run:
-```bash
-python3 -m pip install julia
-```
+8. In your virtual environment, install: `pyjulia`, the interface that lets you call Julia code from Python. 
+    - Activate your virtual environement, then run:
+    ```bash
+    python3 -m pip install julia
+    ```
 
 9. In Python run:
 ```python
@@ -109,7 +129,7 @@ We can now call Dojo from Python!
 See the [Documentation](https://dojo-sim.github.io/Dojo.jl/dev/) for using Dojo.
 
 ## Performance
-We advise to read the [Performance Tips](https://github.com/dojo-sim/Dojo.jl) page. In particular, when Dojo is called from a python script, e.g. `python3 ...` Julia will *just-in-time* compile the solver code which will slow down the overall execution. For larger problems it is advisable to solve a mini problem first to trigger the JIT-compilation and get full performance on the subsequent solve of the actual problem .
+When Dojo is called from a python script, e.g. `python3 ...` Julia will *just-in-time* compile the solver code which will slow down the overall execution. For larger problems it is advisable to solve a mini problem first to trigger the JIT-compilation and get full performance on the subsequent solve of the actual problem .
 
 ## Licence
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
