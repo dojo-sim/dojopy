@@ -10,6 +10,7 @@ Included are interfaces to [PyTorch](https://github.com/pytorch/pytorch) and [JA
 This example simulates a pendulum for 1 time step.
 ```python
 import dojopy 
+from julia import Base
 from julia import Dojo as dojo
 
 # get an environment
