@@ -134,3 +134,18 @@ When Dojo is called from a python script, e.g. `python3 ...` Julia will *just-in
 
 ## Licence
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Citing
+```
+@article{howelllecleach2022,
+	title={Dojo: A Differentiable Simulator for Robotics},
+	author={Taylor, A. Howell and Le Cleac'h, Simon and Kolter, Zico and Schwager, Mac and Manchester, Zachary},
+	journal={arXiv preprint arXiv:2203.00806},
+	url={https://arxiv.org/abs/2203.00806},
+	year={2022}
+}
+```
+
+## How To Contribute
+Please submit a pull request, open an issue, or reach out to: thowell@stanford.edu (Taylor) or simonlc@stanford.edu (Simon)
+
