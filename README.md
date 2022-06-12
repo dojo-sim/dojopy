@@ -31,23 +31,34 @@ dojo.step(env, x1, u1)
 ## Installation
 Using `Dojo` with Python requires a number of installations in addition to `dojopy`. Below are two options for installing all dependencies.
 
-### Automatic (experimental)
-This option automates the steps outline in the advanced section below and automatically installs Dojo, Julia, and a compatible version of Python. (NOTE: this option only supports Ubuntu)
-1. Requirement:
-- Python v3.7+
 
-2. Install this package:
+### Using Docker (recommended)
+1. Clone this repository: 
 
-```bash 
-git clone https://github.com/dojo-sim/dojopy.git 
-pip install ./dojopy 
+```bash
+git clone https://github.com/dojo-sim/dojopy
 ```
 
-3. Install dependencies 
+2. Install Docker (https://docs.docker.com/engine/install/)
 
-```python 
-import dojopy 
-dojopy.install()
+3. Enter the repository folder, build the Dockerfile and tag the image as `dojopy`: (this step may take a few minutes)
+
+```bash
+cd dojopy
+docker build --tag dojopy .
+```
+
+4. Open a bash shell in your Docker container
+```bash
+docker run -it -v /absolute/path/to/dojopy:/dojopip dojopy bash
+```
+(`-v /absolute/path/to/dojopy:/dojopip` allows you to synchronize files from your folder `/absolute/path/to/dojopy` to your docker image)
+
+
+5. You can now run dojopy inside your Docker image!
+Inside the shell of your Docker image opened in step 4., run
+```bash
+python3 quick_start.py
 ```
 
 ### Manual (advanced)
