@@ -144,7 +144,7 @@ See the [Documentation](https://dojo-sim.github.io/Dojo.jl/dev/) for using Dojo.
 ## Performance
 When Dojo is called from a python script, e.g. `python3 ...` Julia will *just-in-time* compile the solver code which will slow down the overall execution. For larger problems it is advisable to solve a mini problem first to trigger the JIT-compilation and get full performance on the subsequent solve of the actual problem .
 
-## Licence
+## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Citing
